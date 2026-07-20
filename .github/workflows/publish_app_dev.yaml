@@ -174,7 +174,7 @@ jobs:
 
   # 打包Windows
   build-windows:
-    runs-on: windows-latest
+    runs-on: windows-2022
     permissions:
       contents: write
     steps:
@@ -199,6 +199,8 @@ jobs:
         run: dart pub global activate flutter_distributor
       # build Windows ZIP\MSIX
       - name: Build Windows
+        env:
+          CXXFLAGS: /D_SILENCE_EXPERIMENTAL_COROUTINE_DEPRECATION_WARNINGS
         run: |
           cd simple_live_app
           flutter_distributor package --platform windows --targets msix,zip --skip-clean
